@@ -87,6 +87,9 @@ func structPayload(v interface{}) ([]byte, error) {
 				wr.writeBool(tag, v)
 			default:
 				vValue := reflect.ValueOf(v)
+				if vValue.IsZero() {
+					continue
+				}
 				if vValue.Kind() == reflect.Slice {
 					for i := 0; i < vValue.Len(); i++ {
 						eValue := vValue.Index(i)
